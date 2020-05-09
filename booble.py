@@ -37,10 +37,12 @@ if __name__ == "__main__":
 
     cli.add_argument('url', nargs='*', help = 'Url to the list of posts\n\n')
 
-    cli.add_argument('-v', action  = 'store_true', help = 'debug logging\n\n')
-    cli.add_argument('-u', metavar = 'user',       help = 'Username\n\n')
-    cli.add_argument('-p', metavar = 'pass',       help = 'Password\n\n')
+    cli.add_argument('-v',    action  = 'store_true', help = 'debug logging\n\n')
     cli.add_argument('--dev', action  = 'store_true', help = 'Only fetch url if no data on disk. Cache response to disk and use it on subsequent runs.\n\n')
+    cli.add_argument('-u',    metavar = 'user',       help = 'Username\n\n')
+    cli.add_argument('-p',    metavar = 'pass',       help = 'Password\n\n')
+
+    cli.add_argument('--cache-dir', metavar = '~/booble/cache', help = 'Where to store previous runs and session files\n\n')
 
     cli.add_argument('--name-length', type = int, default = 40, metavar = '40',
         help = 'Static length for item name in output\n\n')
@@ -75,9 +77,14 @@ if __name__ == "__main__":
 
     args = cli.parse_args()
 
-    cache_dir = Path('./cache')
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    args.cache_dir = cache_dir
+    try:
+        args.cache_dir = Path(args.cache_dir)
+    except:
+        home           = str(Path.home())
+        cache_dir      = Path(f'{home}/booble/cache')
+        args.cache_dir = cache_dir
+
+    args.cache_dir.mkdir(parents=True, exist_ok=True)
 
     if args.v:
         logging.basicConfig(
