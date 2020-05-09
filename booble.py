@@ -42,7 +42,7 @@ if __name__ == "__main__":
     cli.add_argument('-u',    metavar = 'user',       help = 'Username\n\n')
     cli.add_argument('-p',    metavar = 'pass',       help = 'Password\n\n')
 
-    cli.add_argument('--cache-dir', metavar = '~/booble/cache', help = 'Where to store previous runs and session files\n\n')
+    cli.add_argument('--cache-dir', metavar = '~/.cache/booble', help = 'Where to store previous runs and session files\n\n')
 
     cli.add_argument('--name-length', type = int, default = 40, metavar = '40',
         help = 'Static length for item name in output\n\n')
@@ -81,7 +81,7 @@ if __name__ == "__main__":
         args.cache_dir = Path(args.cache_dir)
     except:
         home           = str(Path.home())
-        cache_dir      = Path(f'{home}/booble/cache')
+        cache_dir      = Path(f'{home}/.cache/booble')
         args.cache_dir = cache_dir
 
     args.cache_dir.mkdir(parents=True, exist_ok=True)
