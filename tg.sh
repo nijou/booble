@@ -42,8 +42,9 @@ disable_notification="false"
 disable_web_page_preview="false"
 timeout="30"
 
-if [ -f ./private.sh ]; then
-  . ./private.sh
+script_dir="$(dirname "$0")"
+if [ -f "$script_dir/private.sh" ]; then
+  . "$script_dir/private.sh"
 fi
 
 while [ $# -gt 0 ]; do
