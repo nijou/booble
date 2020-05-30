@@ -41,7 +41,7 @@ def login(site, args):
         log.debug(f'{session_file} not found attempting login')
         pass
 
-    response = site.login(session, args.u, args.p)
+    site.login(session, args.u, args.p)
 
     with open(session_file, 'wb') as file:
         pickle.dump(session.cookies, file)
@@ -64,7 +64,7 @@ def fetch(site, url, args):
 def main(url, args):
     name     = re.search(r'(tori|io-tech|murobbs|verkkokauppa)', url, re.I).group(1).replace('-', '')
     site     = globals()[name]
-    hash     = hashlib.sha1(url.encode('UTF-8')).hexdigest()[:6]
+    hash     = hashlib.sha1(url.encode('UTF-8')).hexdigest()[:5]
     filename = f'{args.cache_dir}/{site.name}-previous-run-{hash}.txt'
     dev_file = f'{args.cache_dir}/dev-{site.name}-{hash}.html'
 
@@ -117,6 +117,7 @@ def main(url, args):
     if previous_ids:
 
         notifications = 0
+        keep_looking  = 5
 
         for item in items:
             id    = item['id']
@@ -125,8 +126,12 @@ def main(url, args):
             price = item['price']
 
             if id in previous_ids:
-                log.debug('--- first familiar item ---')
-                log.debug(f'{id} -> {name}')
+                log.debug(f'[familiar item {keep_looking}] {id} -> {name}')
+                keep_looking -= 1
+
+                if keep_looking:
+                    continue
+
                 log.debug(f'stop looking')
                 break
 
@@ -149,8 +154,7 @@ def main(url, args):
                 link  = link
             ))
 
-        if notifications:
-            sys.stdout.flush()
+        sys.stdout.flush()
 
     # remember these ids for next time
     ids = [ item['id'] for item in items ]
