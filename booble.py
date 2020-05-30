@@ -3,6 +3,7 @@
 import argparse
 import fileinput
 import logging
+import os
 import select
 import sys
 from pathlib import Path
@@ -80,9 +81,8 @@ if __name__ == "__main__":
     try:
         args.cache_dir = Path(args.cache_dir)
     except:
-        home           = str(Path.home())
-        cache_dir      = Path(f'{home}/.cache/booble')
-        args.cache_dir = cache_dir
+        here = os.path.dirname(os.path.realpath(__file__))
+        args.cache_dir = Path(f'{here}/cache')
 
     args.cache_dir.mkdir(parents=True, exist_ok=True)
 
