@@ -38,14 +38,14 @@ SETUP
     5. ./tg --chat_id @big_papi_channel --message 'si papi'"
 
 # Parse args
+token="1172593241:AAE1mBUALAMPCQx2RE-Rp0PoLFojJd3KVbA"
+chat_id="-1001454128731"
 disable_notification="false"
 disable_web_page_preview="false"
 timeout="30"
 
 script_dir="$(dirname "$0")"
-if [ -f "$script_dir/private.sh" ]; then
-  . "$script_dir/private.sh"
-fi
+[ -f "$script_dir/private.sh" ] && . "$script_dir/private.sh"
 
 while [ $# -gt 0 ]; do
 

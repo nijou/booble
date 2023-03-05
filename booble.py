@@ -88,6 +88,8 @@ if __name__ == "__main__":
 
     if args.v:
         logging.basicConfig(
+            filename="log/booble.log",
+            filemode='a',
             format  = '%(asctime)s %(levelname)-7s %(name)-14s %(message)s',
             datefmt = '%Y-%m-%d %H:%M:%S',
             level   = logging.DEBUG

@@ -1,2 +1,2 @@
-token="telegram api token"
-chat_id="telegram chat id"
+token="1172593241:AAE1mBUALAMPCQx2RE-Rp0PoLFojJd3KVbA"
+chat_id="-1001454128731"

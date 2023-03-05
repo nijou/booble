@@ -162,5 +162,3 @@ def main(url, args):
 
     with open(filename, 'w') as file:
         file.write(ids)
-
-
